@@ -1,15 +1,15 @@
 #include "Game.hpp"
 
 namespace fruitjuice {
-	Game::Game(std::shared_ptr<SDL_Window> ctx) : window(ctx), running(false), basic() {
+	Game::Game(std::shared_ptr<SDL_Window> ctx) : window(ctx), running(false), basic(), camera(75.0f, 16.0f / 9.0f) {
 		const std::string fragShaderPath = "shaders/basic.frag";
 		const std::string vertShaderPath = "shaders/basic.vert";
 
 		std::vector<const GLfloat> vertexData = {
-			-0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f,  0.5f, -0.5f,
-			-0.5f,  0.5f, -0.5f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 		std::vector<const GLuint> indexData = {0, 1, 2, 3};
 
@@ -19,6 +19,8 @@ namespace fruitjuice {
 		model.LoadIndexData(indexData);
 		model.SetPositionLocation(basic.GetAttribLocation("position"));
 		model.SetMVPLocation(basic.GetUniformLocation("projectionMatrix"), basic.GetUniformLocation("modelViewMatrix"));
+
+		camera.translate(glm::vec3(0.0f, 0.0f, -10.0f));
 	}
 
 	Game::~Game() {
@@ -61,10 +63,10 @@ namespace fruitjuice {
 	void Game::initGL() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		/*glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	void Game::handleInput() {
@@ -77,13 +79,20 @@ namespace fruitjuice {
 
 	void Game::update() {
 		model.Tick();
+
+		if (zoom + zoomDelta >= 0.25f || zoom + zoomDelta <= -0.25f) {
+			zoomDelta *= -1;
+		}
+		zoom += zoomDelta;
+
+		camera.translate(glm::vec3(0.0f, 0.0f, zoom));
 	}
 
 	void Game::render() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		basic.EnableShader();
-		model.Draw();
+		model.Draw(camera);
 		basic.DisableShader();
 	}
 }

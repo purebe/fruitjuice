@@ -6,6 +6,8 @@
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 
+#include "Camera.hpp"
+
 namespace fruitjuice {
 	class Model {
 	public:
@@ -19,13 +21,12 @@ namespace fruitjuice {
 		void SetPositionLocation(GLint position) { positionLocation = position; }
 
 		void Tick();
-		void Draw();
+		void Draw(Camera& camera) const;
 	private:
 		std::vector<const GLuint> buffers;
 		std::vector<const GLfloat> vertices;
 		std::vector<const GLuint> indices;
 
-		glm::mat4 projection;
 		glm::mat4 modelView;
 
 		GLfloat rotation = 45.0f;

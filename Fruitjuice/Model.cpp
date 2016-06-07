@@ -2,8 +2,6 @@
 
 namespace fruitjuice {
 	Model::Model() {
-		projection = glm::perspectiveFov<GLfloat>(80.0f, 1280, 720, 1.0f, -1.0f);
-		projection = glm::translate(projection, glm::vec3(0.0f, 0.0f, -5.0f));
 		modelView = glm::mat4(1.0f);
 	}
 
@@ -31,8 +29,8 @@ namespace fruitjuice {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
 	}
 
-	void Model::Draw() {
-		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+	void Model::Draw(Camera& camera) const {
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(camera.getCamera()));
 		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, glm::value_ptr(modelView));
 
 		glEnableVertexAttribArray(positionLocation);

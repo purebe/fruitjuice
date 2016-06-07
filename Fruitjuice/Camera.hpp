@@ -8,9 +8,15 @@
 namespace fruitjuice {
 	class Camera {
 	public:
-		Camera();
+		Camera(const GLfloat fov, const GLfloat aspectRatio);
 		~Camera();
 
+		glm::mat4 getCamera();
+
+		void translate(glm::vec3 vector);
+
 	private:
+		glm::mat4 projection;
+		glm::mat4 modelView;
 	};
 }

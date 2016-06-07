@@ -3,7 +3,9 @@
 #include <memory>
 #include <SDL.h>
 #include <GL\glew.h>
+#include <iostream>
 
+#include "Camera.hpp"
 #include "Shader.hpp"
 #include "Model.hpp"
 
@@ -23,7 +25,11 @@ namespace fruitjuice {
 		SDL_Event event;
 		Model model;
 		Shader basic;
+		Camera camera;
 		bool running;
+
+		GLfloat zoom = 0.0f;
+		GLfloat zoomDelta = 0.01f;
 
 		void initGL();
 		void handleInput();
