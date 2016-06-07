@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fruitjuice">
+      <UniqueIdentifier>{28b4d29e-3aec-4aca-9ac3-cb412fb267f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\Window">
+      <UniqueIdentifier>{c9c37a29-0bf1-4cc6-933f-7a0ecba522e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\EzSDL">
+      <UniqueIdentifier>{1ece0f34-d593-455c-a126-ed5868411d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\Game">
+      <UniqueIdentifier>{1b164cee-bad8-40d7-8c5c-cd2e2d926d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\Exceptions">
+      <UniqueIdentifier>{4f38bd1e-8d46-4bf8-8dde-e31f0c27fbb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\EzSDL\Exceptions">
+      <UniqueIdentifier>{ffd36c97-c586-4f0f-b87b-c017b229557a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\EzSDL\Deleters">
+      <UniqueIdentifier>{2415cae0-65c8-44e7-8ef0-e6cafd7c4c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL">
+      <UniqueIdentifier>{5fab8126-cc99-4404-8ad3-e11d64984753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\Shaders">
+      <UniqueIdentifier>{a507cf7b-1ddb-4dc8-8525-2e4367411757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\Shaders\Shader">
+      <UniqueIdentifier>{511bfa8a-015b-4412-abfe-ecab354044e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\Shaders\TexturedPolygon">
+      <UniqueIdentifier>{7631e79a-111a-452a-9745-40f8f66419bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\Models">
+      <UniqueIdentifier>{28db5c4f-c753-441e-80a1-407231b2d19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\Cameras">
+      <UniqueIdentifier>{63686ec7-3682-4b09-93f5-a82e072768ab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Fruitjuice\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EzSDL.cpp">
+      <Filter>Fruitjuice\EzSDL</Filter>
+    </ClCompile>
+    <ClCompile Include="init_error.cpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="init_error_sdl_.cpp">
+      <Filter>Fruitjuice\EzSDL\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Fruitjuice\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Fruitjuice\OpenGL\Shaders\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturedPolygonShader.cpp">
+      <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Fruitjuice\OpenGL\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Fruitjuice\OpenGL\Cameras</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EzSDL.hpp">
+      <Filter>Fruitjuice\EzSDL</Filter>
+    </ClInclude>
+    <ClInclude Include="init_error.hpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="init_error_sdl.hpp">
+      <Filter>Fruitjuice\EzSDL\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_WindowDeleter.hpp">
+      <Filter>Fruitjuice\EzSDL\Deleters</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Fruitjuice\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.hpp">
+      <Filter>Fruitjuice\OpenGL\Shaders\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturedPolygonShader.hpp">
+      <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.hpp">
+      <Filter>Fruitjuice\OpenGL\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.hpp">
+      <Filter>Fruitjuice\OpenGL\Cameras</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
