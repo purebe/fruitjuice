@@ -3,9 +3,8 @@
 #include <GL\glew.h>
 #include <vector>
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <direct.h>
+
+#include "FileIO.hpp"
 
 namespace fruitjuice {
 	enum class ShaderType { FRAG, VERT };
@@ -36,7 +35,5 @@ namespace fruitjuice {
 		void compileShader(const GLuint shaderId, const std::string &source);
 		void verifyShader(const GLuint shaderId);
 		void verifyProgram();
-
-		std::string readFile(const std::string &path);
 	};
 }

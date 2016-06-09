@@ -4,13 +4,25 @@ namespace fruitjuice {
 	Model::Model() {
 		modelView = glm::mat4(1.0f);
 	}
+	
+	Model::Model(const std::string &path) {
+		Model();
+		Import(path);
+	}
 
 	Model::~Model() {
 	}
+	
+	void Model::Import(const std::string &path) {
 
-	void Model::Tick() {
-		rotation += 0.01f;
-		modelView = glm::rotate(glm::mat4(1.0f), rotation, glm::vec3(0, 1, 0));
+	}
+
+	void Model::translate(const glm::vec3 &vector) {
+		modelView = glm::translate(modelView, vector);
+	}
+
+	void Model::rotate(const GLfloat amount, const glm::vec3 &axis) {
+		modelView = glm::rotate(modelView, amount, axis);
 	}
 
 	void Model::LoadVertexData(const std::vector<const GLfloat> vertices) {

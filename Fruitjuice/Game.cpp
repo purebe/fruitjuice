@@ -11,16 +11,27 @@ namespace fruitjuice {
 			 0.5f,  0.5f, 0.0f,
 			-0.5f,  0.5f, 0.0f
 		};
+
 		std::vector<const GLuint> indexData = {0, 1, 2, 3};
 
 		basic.BuildShaderFromFile(fragShaderPath, vertShaderPath);
 
-		model.LoadVertexData(vertexData);
-		model.LoadIndexData(indexData);
-		model.SetPositionLocation(basic.GetAttribLocation("position"));
-		model.SetMVPLocation(basic.GetUniformLocation("projectionMatrix"), basic.GetUniformLocation("modelViewMatrix"));
+		GLfloat positionX = -10.0f;
+		GLfloat positionY = -10.0f;
+		for (int itr = 0; itr < 9; ++itr) {
+			for (int ktr = 0; ktr < 9; ++ktr) {
+				Model model;
+				model.LoadVertexData(vertexData);
+				model.LoadIndexData(indexData);
+				model.SetPositionLocation(basic.GetAttribLocation("position"));
+				model.SetMVPLocation(basic.GetUniformLocation("projectionMatrix"), basic.GetUniformLocation("modelViewMatrix"));
+				model.translate(glm::vec3(positionX + 2 * (itr + 1), positionY + 2 * (ktr + 1), 0));
 
-		camera.translate(glm::vec3(0.0f, 0.0f, -10.0f));
+				models.push_back(model);
+			}
+		}
+
+		camera.translate(glm::vec3(0.0f, 0.0f, -55.0f));
 	}
 
 	Game::~Game() {
@@ -78,7 +89,9 @@ namespace fruitjuice {
 	}
 
 	void Game::update() {
-		model.Tick();
+		for (Model &m : models) {
+			m.rotate(0.01f, glm::vec3(0, 1, 0));
+		}
 
 		if (zoom + zoomDelta >= 0.25f || zoom + zoomDelta <= -0.25f) {
 			zoomDelta *= -1;
@@ -92,7 +105,9 @@ namespace fruitjuice {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		basic.EnableShader();
-		model.Draw(camera);
+		for (Model m : models) {
+			m.Draw(camera);
+		}
 		basic.DisableShader();
 	}
 }

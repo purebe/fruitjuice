@@ -45,27 +45,12 @@ namespace fruitjuice {
 		verifyProgram();
 	}
 
-	std::string Shader::readFile(const std::string &path) {
-		char cwd[512];
-		_getcwd(cwd, 512);
-
-		std::string fullpath(std::string(cwd) + "/" + path);
-
-		std::ifstream srcFile(fullpath);
-		srcFile.exceptions(std::ios_base::failbit | std::ios_base::badbit);
-
-		std::stringstream buffer;
-		buffer << srcFile.rdbuf();
-
-		return buffer.str();
-	}
-
 	void Shader::BuildFragmentFromFile(const std::string &path) {
-		BuildFragment(readFile(path));
+		BuildFragment(FileIO::readFile(path));
 	}
 
 	void Shader::BuildVertexFromFile(const std::string &path) {
-		BuildVertex(readFile(path));
+		BuildVertex(FileIO::readFile(path));
 	}
 
 	void Shader::BuildShaderFromFile(const std::string &fragPath, const std::string &vertPath) {

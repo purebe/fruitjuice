@@ -23,7 +23,7 @@ namespace fruitjuice {
 	private:
 		std::shared_ptr<SDL_Window> window;
 		SDL_Event event;
-		Model model;
+		std::vector<Model> models;
 		Shader basic;
 		Camera camera;
 		bool running;

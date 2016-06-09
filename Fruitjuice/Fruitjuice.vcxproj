@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="EzSDL.hpp" />
+    <ClInclude Include="FileIO.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="init_error.hpp" />
     <ClInclude Include="init_error_sdl.hpp" />
