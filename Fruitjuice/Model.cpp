@@ -17,14 +17,6 @@ namespace fruitjuice {
 
 	}
 
-	void Model::translate(const glm::vec3 &vector) {
-		modelView = glm::translate(modelView, vector);
-	}
-
-	void Model::rotate(const GLfloat amount, const glm::vec3 &axis) {
-		modelView = glm::rotate(modelView, amount, axis);
-	}
-
 	void Model::LoadVertexData(const std::vector<const GLfloat> vertices) {
 		this->vertices = vertices;
 		glGenBuffers(1, &vertexBuffer);
@@ -41,8 +33,8 @@ namespace fruitjuice {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
 	}
 
-	void Model::Draw(Camera& camera) const {
-		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(camera.getCamera()));
+	void Model::Draw(const Camera& camera) const {
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(camera.getMVP()));
 		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, glm::value_ptr(modelView));
 
 		glEnableVertexAttribArray(positionLocation);

@@ -8,12 +8,4 @@ namespace fruitjuice {
 
 	Camera::~Camera() {
 	}
-
-	glm::mat4 Camera::getCamera() {
-		return projection * modelView;
-	}
-
-	void Camera::translate(glm::vec3 vector) {
-		modelView = glm::translate(modelView, vector);
-	}
 }

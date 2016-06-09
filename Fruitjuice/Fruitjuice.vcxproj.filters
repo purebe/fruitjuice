@@ -34,14 +34,17 @@
     <Filter Include="Fruitjuice\OpenGL\Shaders\TexturedPolygon">
       <UniqueIdentifier>{7631e79a-111a-452a-9745-40f8f66419bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fruitjuice\OpenGL\Models">
-      <UniqueIdentifier>{28db5c4f-c753-441e-80a1-407231b2d19c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fruitjuice\OpenGL\Cameras">
-      <UniqueIdentifier>{63686ec7-3682-4b09-93f5-a82e072768ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fruitjuice\System">
       <UniqueIdentifier>{2086e05d-2675-43e6-8ff6-6949d6ee27b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\World">
+      <UniqueIdentifier>{5118a33b-c8c0-4e16-ac52-6cf2c964485f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\World\Models">
+      <UniqueIdentifier>{28db5c4f-c753-441e-80a1-407231b2d19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\OpenGL\World\Cameras">
+      <UniqueIdentifier>{63686ec7-3682-4b09-93f5-a82e072768ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,10 +70,13 @@
       <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Fruitjuice\OpenGL\Models</Filter>
+      <Filter>Fruitjuice\OpenGL\World\Models</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Fruitjuice\OpenGL\Cameras</Filter>
+      <Filter>Fruitjuice\OpenGL\World\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Fruitjuice\OpenGL\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,13 +102,16 @@
       <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
     </ClInclude>
     <ClInclude Include="Model.hpp">
-      <Filter>Fruitjuice\OpenGL\Models</Filter>
+      <Filter>Fruitjuice\OpenGL\World\Models</Filter>
     </ClInclude>
     <ClInclude Include="Camera.hpp">
-      <Filter>Fruitjuice\OpenGL\Cameras</Filter>
+      <Filter>Fruitjuice\OpenGL\World\Cameras</Filter>
     </ClInclude>
     <ClInclude Include="FileIO.hpp">
       <Filter>Fruitjuice\System</Filter>
+    </ClInclude>
+    <ClInclude Include="World.hpp">
+      <Filter>Fruitjuice\OpenGL\World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
