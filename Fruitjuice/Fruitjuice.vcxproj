@@ -89,7 +89,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="TexturedPolygonShader.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +99,10 @@
     <ClInclude Include="init_error.hpp" />
     <ClInclude Include="init_error_sdl.hpp" />
     <ClInclude Include="Model.hpp" />
+    <ClInclude Include="ModelImporter.hpp" />
     <ClInclude Include="SDL_WindowDeleter.hpp" />
     <ClInclude Include="Shader.hpp" />
-    <ClInclude Include="TexturedPolygonShader.hpp" />
+    <ClInclude Include="StringHelper.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

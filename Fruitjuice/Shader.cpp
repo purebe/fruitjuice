@@ -129,6 +129,6 @@ namespace fruitjuice {
 	}
 
 	void Shader::DisableShader() {
-		glUseProgram(NULL);
+		glUseProgram(0);
 	}
 }

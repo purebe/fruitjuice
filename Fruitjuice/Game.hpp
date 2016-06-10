@@ -8,6 +8,7 @@
 #include "Camera.hpp"
 #include "Shader.hpp"
 #include "Model.hpp"
+#include "ModelImporter.hpp"
 
 namespace fruitjuice {
 	__declspec(align(16)) class Game {

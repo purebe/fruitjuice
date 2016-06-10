@@ -31,9 +31,6 @@
     <Filter Include="Fruitjuice\OpenGL\Shaders\Shader">
       <UniqueIdentifier>{511bfa8a-015b-4412-abfe-ecab354044e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fruitjuice\OpenGL\Shaders\TexturedPolygon">
-      <UniqueIdentifier>{7631e79a-111a-452a-9745-40f8f66419bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fruitjuice\System">
       <UniqueIdentifier>{2086e05d-2675-43e6-8ff6-6949d6ee27b2}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="Fruitjuice\OpenGL\World\Cameras">
       <UniqueIdentifier>{63686ec7-3682-4b09-93f5-a82e072768ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fruitjuice\Assets">
+      <UniqueIdentifier>{e4e78113-50b0-45b7-89e0-b810ff3bddc0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Fruitjuice\OpenGL\Shaders\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturedPolygonShader.cpp">
-      <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Fruitjuice\OpenGL\World\Models</Filter>
@@ -98,9 +95,6 @@
     <ClInclude Include="Shader.hpp">
       <Filter>Fruitjuice\OpenGL\Shaders\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="TexturedPolygonShader.hpp">
-      <Filter>Fruitjuice\OpenGL\Shaders\TexturedPolygon</Filter>
-    </ClInclude>
     <ClInclude Include="Model.hpp">
       <Filter>Fruitjuice\OpenGL\World\Models</Filter>
     </ClInclude>
@@ -112,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="World.hpp">
       <Filter>Fruitjuice\OpenGL\World</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelImporter.hpp">
+      <Filter>Fruitjuice\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.hpp">
+      <Filter>Fruitjuice\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

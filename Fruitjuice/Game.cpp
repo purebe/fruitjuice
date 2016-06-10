@@ -5,29 +5,19 @@ namespace fruitjuice {
 		const std::string fragShaderPath = "shaders/basic.frag";
 		const std::string vertShaderPath = "shaders/basic.vert";
 
-		std::vector<const GLfloat> vertexData = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
-		};
-
-		std::vector<const GLuint> indexData = {0, 1, 2, 3};
-
 		basic.BuildShaderFromFile(fragShaderPath, vertShaderPath);
 
-		GLfloat positionX = -10.0f;
-		GLfloat positionY = -10.0f;
-		for (int itr = 0; itr < 9; ++itr) {
-			for (int ktr = 0; ktr < 9; ++ktr) {
-				Model model;
-				model.LoadVertexData(vertexData);
-				model.LoadIndexData(indexData);
-				model.SetPositionLocation(basic.GetAttribLocation("position"));
-				model.SetMVPLocation(basic.GetUniformLocation("projectionMatrix"), basic.GetUniformLocation("modelViewMatrix"));
-				model.translate(glm::vec3(positionX + 2 * (itr + 1), positionY + 2 * (ktr + 1), 0));
+		GLfloat positionX = -15.0f;
+		GLfloat positionY = -20.0f;
+		GLfloat deltaX    = 5.0f;
+		GLfloat deltaY    = 10.0f;
+		Model model = ModelImporter::Import("models/potion.obj", basic);
+		for (int itr = 0; itr < 5; ++itr) {
+			for (int ktr = 0; ktr < 3; ++ktr) {
+				Model m(model);
+				m.translate(glm::vec3(positionX + deltaX * (itr + 1), positionY + deltaY * (ktr + 1), 0));
 
-				models.push_back(model);
+				models.push_back(m);
 			}
 		}
 
@@ -76,7 +66,8 @@ namespace fruitjuice {
 
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
-		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
@@ -102,7 +93,7 @@ namespace fruitjuice {
 	}
 
 	void Game::render() {
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		basic.EnableShader();
 		for (Model m : models) {
