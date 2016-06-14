@@ -1,7 +1,7 @@
 #include "World.hpp"
 
 namespace fruitjuice {
-	World::World() {
+	World::World() : projection(1.0f), modelView(1.0f) {
 	}
 
 	World::~World() {

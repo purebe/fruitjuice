@@ -14,5 +14,5 @@ void main() {
 	gl_Position = projection * modelView * vec4(position.xyz, 1);
 	color = gl_Position;
 	outNormal = (modelView * vec4(normal, 0)).xyz;
-	light = (modelView * vec4(0, -5, 5, 1)).xyz;
+	light = vec4(0, 0, 5, 1).xyz;
 }

@@ -13,13 +13,14 @@
 namespace fruitjuice {
 	__declspec(align(16)) class Game {
 	public:
-		Game(std::shared_ptr<SDL_Window> ctx);
+		Game();
 		virtual ~Game();
 
 		// TODO: Determine the need to override 'operator new[]' and 'operator delete[]'
 		void* operator new(size_t size);
 		void operator delete(void *p);
 
+		void Init(std::shared_ptr<SDL_Window> ctx);
 		void run();
 	private:
 		std::shared_ptr<SDL_Window> window;
@@ -27,7 +28,7 @@ namespace fruitjuice {
 		std::vector<Model> models;
 		Shader basic;
 		Camera camera;
-		bool running;
+		bool running = false;
 
 		GLfloat zoom = 0.0f;
 		GLfloat zoomDelta = 0.01f;

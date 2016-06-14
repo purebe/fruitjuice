@@ -16,9 +16,6 @@
     <Filter Include="Fruitjuice\Exceptions">
       <UniqueIdentifier>{4f38bd1e-8d46-4bf8-8dde-e31f0c27fbb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fruitjuice\EzSDL\Exceptions">
-      <UniqueIdentifier>{ffd36c97-c586-4f0f-b87b-c017b229557a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fruitjuice\EzSDL\Deleters">
       <UniqueIdentifier>{2415cae0-65c8-44e7-8ef0-e6cafd7c4c68}</UniqueIdentifier>
     </Filter>
@@ -57,9 +54,6 @@
     <ClCompile Include="init_error.cpp">
       <Filter>Fruitjuice\Exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="init_error_sdl_.cpp">
-      <Filter>Fruitjuice\EzSDL\Exceptions</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Fruitjuice\Game</Filter>
     </ClCompile>
@@ -75,6 +69,18 @@
     <ClCompile Include="World.cpp">
       <Filter>Fruitjuice\OpenGL\World</Filter>
     </ClCompile>
+    <ClCompile Include="init_error_sdl_.cpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="invalid_format.cpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Fruitjuice\OpenGL\World\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelImporter.cpp">
+      <Filter>Fruitjuice\Assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EzSDL.hpp">
@@ -82,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="init_error.hpp">
       <Filter>Fruitjuice\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="init_error_sdl.hpp">
-      <Filter>Fruitjuice\EzSDL\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="SDL_WindowDeleter.hpp">
       <Filter>Fruitjuice\EzSDL\Deleters</Filter>
@@ -112,6 +115,21 @@
     </ClInclude>
     <ClInclude Include="StringHelper.hpp">
       <Filter>Fruitjuice\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.hpp">
+      <Filter>Fruitjuice\OpenGL\World\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLTypes.hpp">
+      <Filter>Fruitjuice\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="init_error_sdl.hpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="invalid_format.hpp">
+      <Filter>Fruitjuice\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Fruitjuice\OpenGL\World\Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,8 +6,9 @@
 #include <direct.h>
 
 namespace fruitjuice {
-	namespace FileIO {
-		static std::string getCurrentWorkingDirectory() {
+	class FileIO {
+	public:
+		static std::string getCurrentWorkingDirectory() _NOEXCEPT {
 			char cwd[512];
 			_getcwd(cwd, 512);
 
@@ -25,5 +26,5 @@ namespace fruitjuice {
 
 			return buffer.str();
 		}
-	}
+	};
 }

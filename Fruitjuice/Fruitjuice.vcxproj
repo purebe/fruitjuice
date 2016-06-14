@@ -39,11 +39,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\SDL2\include;$(SolutionDir)\glew\include;$(SolutionDir)\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\SDL2\include;$(SolutionDir)\glew\include;$(SolutionDir)\glm;$(SolutionDir)\extras\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SDL2\lib\x86;$(SolutionDir)\glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)\SDL2\include;$(SolutionDir)\glew\include;$(SolutionDir)\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\SDL2\include;$(SolutionDir)\glew\include;$(SolutionDir)\glm;$(SolutionDir)\extras\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SDL2\lib\x86;$(SolutionDir)\glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -86,8 +86,11 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="init_error.cpp" />
     <ClCompile Include="init_error_sdl_.cpp" />
+    <ClCompile Include="invalid_format.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelImporter.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -98,8 +101,12 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="init_error.hpp" />
     <ClInclude Include="init_error_sdl.hpp" />
+    <ClInclude Include="invalid_format.hpp" />
+    <ClInclude Include="Material.hpp" />
+    <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="Model.hpp" />
     <ClInclude Include="ModelImporter.hpp" />
+    <ClInclude Include="OpenGLTypes.hpp" />
     <ClInclude Include="SDL_WindowDeleter.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="StringHelper.hpp" />

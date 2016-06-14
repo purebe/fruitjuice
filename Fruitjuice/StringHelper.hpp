@@ -5,7 +5,8 @@
 #include <vector>
 
 namespace fruitjuice {
-	namespace StringHelper {
+	class StringHelper {
+	public:
 		static std::vector<std::string> Tokenize(const std::string &str, const char delim) {
 			std::vector<std::string> tokens;
 
@@ -17,5 +18,5 @@ namespace fruitjuice {
 
 			return tokens;
 		}
-	}
+	};
 }

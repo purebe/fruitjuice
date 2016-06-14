@@ -1,27 +1,7 @@
 #include "Game.hpp"
 
 namespace fruitjuice {
-	Game::Game(std::shared_ptr<SDL_Window> ctx) : window(ctx), running(false), basic(), camera(75.0f, 16.0f / 9.0f) {
-		const std::string fragShaderPath = "shaders/basic.frag";
-		const std::string vertShaderPath = "shaders/basic.vert";
-
-		basic.BuildShaderFromFile(fragShaderPath, vertShaderPath);
-
-		GLfloat positionX = -15.0f;
-		GLfloat positionY = -20.0f;
-		GLfloat deltaX    = 5.0f;
-		GLfloat deltaY    = 10.0f;
-		Model model = ModelImporter::Import("models/potion.obj", basic);
-		for (int itr = 0; itr < 5; ++itr) {
-			for (int ktr = 0; ktr < 3; ++ktr) {
-				Model m(model);
-				m.translate(glm::vec3(positionX + deltaX * (itr + 1), positionY + deltaY * (ktr + 1), 0));
-
-				models.push_back(m);
-			}
-		}
-
-		camera.translate(glm::vec3(0.0f, 0.0f, -55.0f));
+	Game::Game() {
 	}
 
 	Game::~Game() {
@@ -46,6 +26,39 @@ namespace fruitjuice {
 		}
 
 		_aligned_free(mem);
+	}
+
+	void Game::Init(std::shared_ptr<SDL_Window> ctx) {
+		this->window = ctx;
+		camera.setFov(glm::radians(47.0f));
+		camera.setAspectRatio(16.0f / 9.0f);
+		camera.setLookat(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+
+		const std::string fragShaderPath = "shaders/basic.frag";
+		const std::string vertShaderPath = "shaders/basic.vert";
+
+		basic.BuildShaderFromFile(fragShaderPath, vertShaderPath);
+
+		GLfloat positionX = -75.0f;
+		GLfloat positionY = -47.0f;
+		GLfloat deltaX    = 5.0f;
+		GLfloat deltaY    = 10.0f;
+		Model model;
+		ModelImporter importer;
+		GLint depthBits;
+		glGetIntegerv(GL_DEPTH_BITS, &depthBits);
+		std::cerr << depthBits;
+		importer.Import("models/potion.obj", basic, model);
+		for (int itr = 0; itr < 29; ++itr) {
+			for (int ktr = 0; ktr < 8; ++ktr) { 
+				Model m(model);
+				m.translate(glm::vec3(positionX + deltaX * (itr + 1), positionY + deltaY * (ktr + 1), 0));
+
+				models.push_back(m);
+			}
+		}
+
+		camera.translate(glm::vec3(0.0f, 0.0f, -50.0f));
 	}
 
 	void Game::run() {
@@ -81,7 +94,7 @@ namespace fruitjuice {
 
 	void Game::update() {
 		for (Model &m : models) {
-			m.rotate(0.01f, glm::vec3(0, 1, 0));
+			m.rotate(glm::radians(0.5f), glm::vec3(0, 1, 0));
 		}
 
 		if (zoom + zoomDelta >= 0.25f || zoom + zoomDelta <= -0.25f) {
@@ -99,6 +112,6 @@ namespace fruitjuice {
 		for (Model m : models) {
 			m.Draw(camera);
 		}
-		basic.DisableShader();
+		basic.DisableShader(); 
 	}
 }

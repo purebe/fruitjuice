@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <memory>
 #include <GL\glew.h>
 #include <SDL.h>
@@ -9,11 +10,12 @@
 namespace fruitjuice {
 	class EzSDL {
 	public:
-		EzSDL(Uint32 flags = 0);
+		EzSDL();
 		~EzSDL();
 
-		void CreateWindow(const std::string &title, const Uint32 width, const Uint32 height);
+		void InitSDL(Uint32 flags = 0);
 		void InitOpenGL();
+		void CreateWindow(const std::string &title, const Uint32 width, const Uint32 height);
 
 		std::shared_ptr<SDL_Window> getWindow() const;
 	private:
@@ -21,6 +23,7 @@ namespace fruitjuice {
 		SDL_GLContext glContext = nullptr;
 
 		Uint32 width, height;
+		bool sdlInit = false;
 
 		void initGLContext();
 		void initGLEW();

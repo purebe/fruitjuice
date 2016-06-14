@@ -1,12 +1,19 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
+#include <map>
+#include <memory>
 #include <GL\glew.h>
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 
+#include "OpenGLTypes.hpp"
 #include "World.hpp"
+#include "Mesh.hpp"
+#include "Material.hpp"
+#include "Shader.hpp"
 #include "FileIO.hpp"
 #include "Camera.hpp"
 
@@ -16,9 +23,7 @@ namespace fruitjuice {
 		Model();
 		~Model();
 
-		void LoadVertices(const std::vector<const GLfloat> vertices);
-		void LoadNormals(const std::vector<const GLfloat> normals);
-		void LoadIndices(const std::vector<const GLuint> indices);
+		void AddMesh(std::shared_ptr<Mesh> mesh);
 
 		void SetMVPLocation(const GLint proj, const GLint mv) { projectionLocation = proj; modelViewLocation = mv; }
 		void SetPositionLocation(const GLint position) { positionLocation = position; }
@@ -26,15 +31,7 @@ namespace fruitjuice {
 
 		void Draw(const Camera& camera) const;
 	private:
-		std::vector<const GLuint> buffers;
-		std::vector<const GLuint> indices;
-		std::vector<const GLfloat> vertices;
-		std::vector<const GLfloat> normals;
-		std::vector<const GLfloat> colors;
-
-		GLuint indexBuffer;
-		GLuint normalBuffer;
-		GLuint vertexBuffer;
+		std::map<const std::string, std::shared_ptr<Mesh>> meshes;
 
 		GLint projectionLocation, modelViewLocation, positionLocation, normalLocation;
 	};

@@ -6,7 +6,7 @@ in vec3 outNormal;
 in vec3 light;
 
 void main() {
-	float diffuse = max(0, dot(normalize(outNormal), normalize(light)));
+	float diffuse = max(0, dot(normalize(light), normalize(outNormal)));
 
 	fragment = vec4(diffuse, diffuse, diffuse, 1);
 }

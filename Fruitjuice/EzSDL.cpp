@@ -1,10 +1,7 @@
 #include "EzSDL.hpp"
 
 namespace fruitjuice {
-	EzSDL::EzSDL(const Uint32 flags) {
-		if (SDL_Init(flags) != 0) {
-			throw init_error_sdl();
-		}
+	EzSDL::EzSDL() {
 	}
 
 	EzSDL::~EzSDL() {
@@ -12,7 +9,21 @@ namespace fruitjuice {
 			SDL_GL_DeleteContext(glContext);
 		}
 
-		SDL_Quit();
+		if (sdlInit) {
+			SDL_Quit();
+		}
+	}
+
+	void EzSDL::InitSDL(Uint32 flags) {
+		if (SDL_Init(flags) != 0) {
+			throw init_error_sdl();
+		}
+		sdlInit = true;
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	}
 
 	void EzSDL::CreateWindow(const std::string &title, const Uint32 width, const Uint32 height) {
@@ -35,14 +46,11 @@ namespace fruitjuice {
 		}
 
 		glViewport(0, 0, width, height);
+
+		std::cerr << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 	}
 
 	void EzSDL::initGLContext() {
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
 		glContext = SDL_GL_CreateContext(window.get());
 
 		if (glContext == NULL) {

@@ -1,3 +1,5 @@
+#define GLM_FORCE_RADIANS
+
 #include <iostream>
 #include <string>
 #include <memory>
@@ -7,14 +9,14 @@
 #include "Game.hpp"
 
 int main(int argc, char* argv[]) {
-	std::unique_ptr<fruitjuice::EzSDL> sdl;
-	std::unique_ptr<fruitjuice::Game> game;
+	fruitjuice::EzSDL sdl;
+	fruitjuice::Game game;
 
 	try {
-		sdl = std::make_unique<fruitjuice::EzSDL>(SDL_INIT_EVERYTHING);
-		sdl->CreateWindow("Fruitjuice", 1280, 720);
-		sdl->InitOpenGL();
-		game = std::make_unique<fruitjuice::Game>(sdl->getWindow());
+		sdl.InitSDL(SDL_INIT_EVERYTHING);
+		sdl.CreateWindow("Fruitjuice", 1280, 720);
+		sdl.InitOpenGL();
+		game.Init(sdl.getWindow());
 	}
 	catch (const std::exception &e) {
 		std::cerr << "Unrecoverable exception thrown during startup: " << e.what() << std::endl;
@@ -22,7 +24,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	try {
-		game->run();
+		game.run();
 	}
 	catch (const std::exception &e) {
 		std::cerr << "Unhandled exception thrown during runtime: " << e.what() << std::endl;
