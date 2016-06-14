@@ -1,7 +1,7 @@
 #include "Mesh.hpp"
 
 namespace fruitjuice {
-	Mesh::Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices) :
+	Mesh::Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices, GLuint positionLocation, GLuint normalLocation) :
 		name(name), vertices(vertices), normals(normals), indices(indices) {
 		glGenBuffers(1, &vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -14,33 +14,41 @@ namespace fruitjuice {
 		glGenBuffers(1, &indexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices->size() * sizeof(GLuint), &(*indices)[0], GL_STATIC_DRAW);
+
+		glGenVertexArrays(1, &vertexArrayObject);
+		glBindVertexArray(vertexArrayObject);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+		glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+
+		glEnableVertexAttribArray(positionLocation);
+		glEnableVertexAttribArray(normalLocation);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+		glBindVertexArray(0);
 	}
 
 	void Mesh::AddMeshGroup(const MeshGroup &meshGroup) {
 		meshGroups.push_back(meshGroup);
 	}
 
-
 	std::string Mesh::getName() {
 		return name;
 	}
 	
-	void Mesh::Draw(GLuint positionLocation, GLuint normalLocation) {
-		glEnableVertexAttribArray(positionLocation);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-		glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+	void Mesh::Draw(const GLint projectionLocation, const GLint modelViewLocation, const Camera &camera, const glm::mat4 &modelView) {
+		glBindVertexArray(vertexArrayObject);
 
-		glEnableVertexAttribArray(normalLocation);
-		glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-		glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(camera.getMVP()));
+		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, glm::value_ptr(modelView));
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 		for (MeshGroup meshGroup : meshGroups) {
-			glDrawElements(GL_TRIANGLES, meshGroup.indexCount, GL_UNSIGNED_INT, (const void *)meshGroup.indexStart);
-			//glDrawElements(GL_TRIANGLES, meshGroup.indexCount, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, meshGroup.indexCount, GL_UNSIGNED_INT, reinterpret_cast<const GLint *>(meshGroup.indexOffset));
 		}
-
-		glDisableVertexAttribArray(positionLocation);
-		glDisableVertexAttribArray(normalLocation);
+		glBindVertexArray(0);
 	}
 }

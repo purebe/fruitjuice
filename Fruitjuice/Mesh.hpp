@@ -11,29 +11,31 @@
 
 #include "OpenGLTypes.hpp"
 #include "Material.hpp"
+#include "Camera.hpp"
 
 namespace fruitjuice {
 	struct MeshGroup {
-		MeshGroup(GLuint indexStart, GLuint indexCount, std::string name, std::shared_ptr<Material> material) :
-			indexStart(indexStart), indexCount(indexCount), name(name), material(material) { }
-		MeshGroup(GLuint indexStart, GLuint indexCount) : indexStart(indexStart), indexCount(indexCount) { }
+		MeshGroup(GLuint indexOffset, GLuint indexCount, std::string name, std::shared_ptr<Material> material) :
+			indexOffset(indexOffset), indexCount(indexCount), name(name), material(material) { }
+		MeshGroup(GLuint indexOffset, GLuint indexCount) : indexOffset(indexOffset), indexCount(indexCount) { }
 		MeshGroup() { }
 
 		std::string name;
 		std::shared_ptr<Material> material;
-		GLuint indexStart, indexCount;
+		GLint indexOffset;
+		GLsizei indexCount;
 	};
 
 	class Mesh {
 	public:
-		Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices);
+		Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices, GLuint positionLocation, GLuint normalLocation);
 
 		void AddMeshGroup(const MeshGroup &meshGroup);
-		void Draw(GLuint positionLocation, GLuint normalLocation);
+		void Draw(const GLint projectionLocation, const GLint modelViewLocation, const Camera &camera, const glm::mat4 &modelView);
 
 		std::string getName();
 	private:
-		GLuint vertexBuffer, normalBuffer, indexBuffer;
+		GLuint vertexArrayObject, vertexBuffer, normalBuffer, indexBuffer;
 		std::shared_ptr<Vertices> vertices;
 		std::shared_ptr<Normals> normals;
 		std::shared_ptr<Indices> indices;

@@ -21,6 +21,8 @@ namespace fruitjuice {
 		void Import(const std::string &path, const Shader &shader, Model &model);
 	private:
 		GLuint offset = 0;
+		GLint positionLocation;
+		GLint normalLocation;
 		std::string peekNextIdentifier(std::istringstream &fileStream);
 		std::vector<std::string> peekNextLine(std::istringstream &fileStream);
 		std::vector<std::string> readNextLine(std::istringstream &fileStream);

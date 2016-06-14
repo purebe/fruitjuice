@@ -5,6 +5,8 @@ namespace fruitjuice {
 		offset = 0;
 		std::string file = FileIO::readFile(path);
 		std::istringstream fileStream(file);
+		positionLocation = shader.GetAttribLocation("position");
+		normalLocation = shader.GetAttribLocation("normal");
 
 		std::string materialLibrary = parseIdentifier("mtllib", fileStream);
 		std::vector<std::shared_ptr<Mesh>> meshes;
@@ -21,8 +23,6 @@ namespace fruitjuice {
 			model.AddMesh(mesh);
 		}
 
-		model.SetPositionLocation(shader.GetAttribLocation("position"));
-		model.SetNormalLocation(shader.GetAttribLocation("normal"));
 		model.SetMVPLocation(shader.GetUniformLocation("projection"), shader.GetUniformLocation("modelView"));
 	}
 
@@ -130,7 +130,7 @@ namespace fruitjuice {
 		std::shared_ptr<Vertices> vertices = std::make_shared<Vertices>();
 		std::shared_ptr<Indices> indices = std::make_shared<Indices>();
 		std::shared_ptr<Normals> normals = std::make_shared<Normals>();
-		GLuint indexId = 0, indexCount = 0, indexStart = 0;
+		GLuint indexId = 0, indexCount = 0, indexOffset = 0;
 		std::map<const std::string, const GLuint> indexMap;
 
 		// At this point, the first MeshGroup should have an index offset = 0
@@ -158,13 +158,13 @@ namespace fruitjuice {
 				++indexCount;
 			}
 
-			MeshGroup meshGroup(indexStart, indexCount);
-			indexStart += indexCount;
+			MeshGroup meshGroup(indexOffset, indexCount);
+			indexOffset += indexCount;
 			meshGroups.push_back(meshGroup);
 		}
 		offset += indexId;
 
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(objectName, vertices, normals, indices);
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(objectName, vertices, normals, indices, positionLocation, normalLocation);
 		for (size_t itr = 0; itr < groupNameList.size(); ++itr) {
 			std::shared_ptr<Material> material = std::make_shared<Material>();
 			material->name = materialNameList[itr];

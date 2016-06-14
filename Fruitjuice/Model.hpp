@@ -26,13 +26,11 @@ namespace fruitjuice {
 		void AddMesh(std::shared_ptr<Mesh> mesh);
 
 		void SetMVPLocation(const GLint proj, const GLint mv) { projectionLocation = proj; modelViewLocation = mv; }
-		void SetPositionLocation(const GLint position) { positionLocation = position; }
-		void SetNormalLocation(const GLint normal) { normalLocation = normal; }
 
 		void Draw(const Camera& camera) const;
 	private:
 		std::map<const std::string, std::shared_ptr<Mesh>> meshes;
 
-		GLint projectionLocation, modelViewLocation, positionLocation, normalLocation;
+		GLint projectionLocation, modelViewLocation;
 	};
 }

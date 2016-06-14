@@ -45,9 +45,6 @@ namespace fruitjuice {
 		GLfloat deltaY    = 10.0f;
 		Model model;
 		ModelImporter importer;
-		GLint depthBits;
-		glGetIntegerv(GL_DEPTH_BITS, &depthBits);
-		std::cerr << depthBits;
 		importer.Import("models/potion.obj", basic, model);
 		for (int itr = 0; itr < 29; ++itr) {
 			for (int ktr = 0; ktr < 8; ++ktr) { 
