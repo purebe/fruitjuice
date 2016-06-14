@@ -30,6 +30,24 @@ struct Material {
 		lightMode(lightMode) { 
 	}
 
+	static Lighting parseLightingMode(std::string lightingMode) {
+		Lighting mode;
+		int imode = std::stoi(lightingMode);
+		switch (imode) {
+		case 0:
+			mode = Lighting::Color;
+			break;
+		case 1:
+			mode = Lighting::Color | Lighting::Ambient;
+			break;
+		case 2:
+			mode = Lighting::Color | Lighting::Ambient | Lighting::Specular;
+			break;
+		}
+
+		return mode;
+	}
+
 	std::string name;
 	glm::vec3 ambient;
 	glm::vec3 diffuse;

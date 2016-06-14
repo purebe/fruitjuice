@@ -19,15 +19,19 @@ namespace fruitjuice {
 	class ModelImporter {
 	public:
 		void Import(const std::string &path, const Shader &shader, Model &model);
+		std::vector<std::string> ImportMaterialLibrary(const std::string &path);
+		std::string ImportMaterial(std::istringstream &fileStream);
 	private:
 		GLuint offset = 0;
-		GLint positionLocation;
-		GLint normalLocation;
+		GLint positionLocation, normalLocation, ambientLocation, diffuseLocation, opacityLocation;
+		std::map<const std::string, std::shared_ptr<Material>> materialLibrary;
+
 		std::string peekNextIdentifier(std::istringstream &fileStream);
 		std::vector<std::string> peekNextLine(std::istringstream &fileStream);
 		std::vector<std::string> readNextLine(std::istringstream &fileStream);
 		std::vector<std::string> readMatchingLines(std::string word, std::istringstream &fileStream);
 		std::string parseIdentifier(std::string word, std::istringstream &fileStream);
+		glm::vec3 lineToVec3(std::vector<std::string> vec);
 		std::shared_ptr<Mesh> parseObject(std::istringstream &fileStream);
 	};
 }

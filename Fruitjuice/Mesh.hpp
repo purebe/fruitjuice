@@ -28,7 +28,8 @@ namespace fruitjuice {
 
 	class Mesh {
 	public:
-		Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices, GLuint positionLocation, GLuint normalLocation);
+		Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices,
+			GLuint positionLocation, GLuint normalLocation, GLuint ambientLocation, GLuint diffuseLocation, GLuint opacityLocation);
 
 		void AddMeshGroup(const MeshGroup &meshGroup);
 		void Draw(const GLint projectionLocation, const GLint modelViewLocation, const Camera &camera, const glm::mat4 &modelView);
@@ -41,5 +42,7 @@ namespace fruitjuice {
 		std::shared_ptr<Indices> indices;
 		std::vector<MeshGroup> meshGroups;
 		std::string name;
+
+		GLuint ambientLocation, diffuseLocation, opacityLocation;
 	};
 }

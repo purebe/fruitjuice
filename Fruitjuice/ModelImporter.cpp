@@ -7,8 +7,13 @@ namespace fruitjuice {
 		std::istringstream fileStream(file);
 		positionLocation = shader.GetAttribLocation("position");
 		normalLocation = shader.GetAttribLocation("normal");
+		ambientLocation = shader.GetUniformLocation("ambientColor");
+		diffuseLocation = shader.GetUniformLocation("diffuseColor");
+		opacityLocation = shader.GetUniformLocation("opacity");
 
 		std::string materialLibrary = parseIdentifier("mtllib", fileStream);
+		ImportMaterialLibrary("models/" + materialLibrary);
+
 		std::vector<std::shared_ptr<Mesh>> meshes;
 		while (true) {
 			std::shared_ptr<Mesh> object = parseObject(fileStream);
@@ -24,6 +29,49 @@ namespace fruitjuice {
 		}
 
 		model.SetMVPLocation(shader.GetUniformLocation("projection"), shader.GetUniformLocation("modelView"));
+	}
+
+	std::vector<std::string> ModelImporter::ImportMaterialLibrary(const std::string &path) {
+		std::string file = FileIO::readFile(path);
+		std::istringstream fileStream(file);
+
+		std::vector<std::string> materialNames;
+		std::string material;
+		do {
+			material = ImportMaterial(fileStream);
+			materialNames.push_back(material);
+		} while (!material.empty());
+		
+		return materialNames;
+	}
+
+	std::string ModelImporter::ImportMaterial(std::istringstream &fileStream) {
+		std::string materialName = parseIdentifier("newmtl", fileStream);
+		if (!materialName.empty()) {
+			std::string specularExponent = readNextLine(fileStream)[1];
+			std::string opacity = readNextLine(fileStream)[1];
+			std::string illuminationModel = readNextLine(fileStream)[1];
+			std::vector<std::string> diffuseColor = readNextLine(fileStream);
+			std::vector<std::string> ambientColor = readNextLine(fileStream);
+			std::vector<std::string> specularColor = readNextLine(fileStream);
+			std::vector<std::string> ke = readNextLine(fileStream);
+
+			std::shared_ptr<Material> material = std::make_shared<Material>(materialName, lineToVec3(ambientColor), lineToVec3(diffuseColor), lineToVec3(specularColor), std::stof(specularExponent), std::stof(opacity), Material::parseLightingMode(illuminationModel));
+			materialLibrary[materialName] = material;
+		}
+
+		return materialName;
+	}
+
+	glm::vec3 ModelImporter::lineToVec3(std::vector<std::string> vec) {
+		glm::vec3 vector;
+		if (vec.size() >= 4) {
+			vector.r = std::stof(vec[1]);
+			vector.g = std::stof(vec[2]);
+			vector.b = std::stof(vec[3]);
+		}
+
+		return vector;
 	}
 
 	std::string ModelImporter::peekNextIdentifier(std::istringstream &fileStream) {
@@ -164,13 +212,10 @@ namespace fruitjuice {
 		}
 		offset += indexId;
 
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(objectName, vertices, normals, indices, positionLocation, normalLocation);
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>(objectName, vertices, normals, indices, positionLocation, normalLocation, ambientLocation, diffuseLocation, opacityLocation);
 		for (size_t itr = 0; itr < groupNameList.size(); ++itr) {
-			std::shared_ptr<Material> material = std::make_shared<Material>();
-			material->name = materialNameList[itr];
-
 			meshGroups[itr].name = groupNameList[itr];
-			meshGroups[itr].material = material;
+			meshGroups[itr].material = materialLibrary[materialNameList[itr]];
 
 			mesh->AddMeshGroup(meshGroups[itr]);
 		}

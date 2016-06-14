@@ -1,8 +1,9 @@
 #include "Mesh.hpp"
 
 namespace fruitjuice {
-	Mesh::Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices, GLuint positionLocation, GLuint normalLocation) :
-		name(name), vertices(vertices), normals(normals), indices(indices) {
+	Mesh::Mesh(std::string name, std::shared_ptr<Vertices> vertices, std::shared_ptr<Normals> normals, std::shared_ptr<Indices> indices,
+		GLuint positionLocation, GLuint normalLocation, GLuint ambientLocation, GLuint diffuseLocation, GLuint opacityLocation) :
+		name(name), vertices(vertices), normals(normals), indices(indices), ambientLocation(ambientLocation), diffuseLocation(diffuseLocation), opacityLocation(opacityLocation) {
 		glGenBuffers(1, &vertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, this->vertices->size() * sizeof(GLfloat), &(*vertices)[0], GL_STATIC_DRAW);
@@ -47,6 +48,10 @@ namespace fruitjuice {
 		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, glm::value_ptr(modelView));
 
 		for (MeshGroup meshGroup : meshGroups) {
+			glUniform3fv(ambientLocation, 1, glm::value_ptr(meshGroup.material->ambient));
+			glUniform3fv(diffuseLocation, 1, glm::value_ptr(meshGroup.material->diffuse));
+			glUniform1fv(opacityLocation, 1, &meshGroup.material->opacity);
+
 			glDrawElements(GL_TRIANGLES, meshGroup.indexCount, GL_UNSIGNED_INT, reinterpret_cast<const GLint *>(meshGroup.indexOffset));
 		}
 		glBindVertexArray(0);
